@@ -74,7 +74,7 @@
                         for (Iterator<Student> i = list.iterator(); i.hasNext();) {
                             Student item = i.next();
                             out.println("<tr>");
-                            out.println("<td>" + item.getFile() + "</td>");
+                            out.println("<td><img style='width:40px;hight:40px;' src='./" + item.getFile() + "'/></td>");
                             out.println("<td>" + item.getFname() + "</td>");
                             out.println("<td>" + item.getLname() + "</td>");
                             out.println("<td>" + item.getEmail() + "</td>");
@@ -82,7 +82,7 @@
                             out.println("<td>" + item.getInterest() + "</td>");
                             out.println("<td>" + item.getAge() + "</td>");
 
-                            out.println("<td>" + "<a class='waves-effect waves-light btn' href='./updateStudent?id=" + item.getId() + "'>Edit</a>" + " | " + "<a class='waves-effect waves-light btn' href='./deleteStudent?id=" + item.getId() + "'>Delete</a>" + "</td>");
+                            out.println("<td>" + "<a class='waves-effect waves-light btn' href='./listCourses?StudId=" + item.getId() + "'>Courses</a>" + " | " + "<a class='waves-effect waves-light btn' href='./updateStudent?id=" + item.getId() + "'>Edit</a>" + " | " + "<a class='waves-effect waves-light btn' href='./deleteStudent?id=" + item.getId() + "'>Delete</a>" + "</td>");
                             out.println("</tr>");
                         }
                     %>

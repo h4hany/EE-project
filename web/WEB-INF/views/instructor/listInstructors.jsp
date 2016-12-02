@@ -78,7 +78,7 @@ No Instructors
                 out.println("<td>" + item.getFname() + "</td>");
                 out.println("<td>" + item.getLname() + "</td>");
 
-                out.println("<td>" + "<a class='waves-effect waves-light btn' href='./updateInstructor?id=" + item.getId() + "'>Edit</a>" + " | " + "<a class='waves-effect waves-light btn' href='./deleteInstructor?id=" + item.getId() + "'>Delete</a>" + "</td>");
+                out.println("<td>" + "<a class='waves-effect waves-light btn' href='./listCourses?id=" + item.getId() + "'>Show Courses</a>" + " | "  + "<a class='waves-effect waves-light btn' href='./updateInstructor?id=" + item.getId() + "'>Edit</a>" + " | " + "<a class='waves-effect waves-light btn' href='./deleteInstructor?id=" + item.getId() + "'>Delete</a>" + "</td>");
                 out.println("</tr>");
             }
         %>

@@ -75,7 +75,7 @@
 
                         out.println("<td>" + item.getInstructorForCourse().getFname() + "</td>");
 
-                        out.println("<td>" + "<a class='waves-effect waves-light btn' href='./updateCourse?id=" + item.getId() + "'>Edit</a>" + " | " + "<a class='waves-effect waves-light btn' href='./deleteCourse?id=" + item.getId() + "'>Delete</a>" + "</td>");
+                        out.println("<td>" + "<a class='waves-effect waves-light btn' href='./listStudents?CourseId=" + item.getId() + "'>Students</a>" + " | " + "<a class='waves-effect waves-light btn' href='./updateCourse?id=" + item.getId() + "'>Edit</a>" + " | " + "<a class='waves-effect waves-light btn' href='./deleteCourse?id=" + item.getId() + "'>Delete</a>" + "</td>");
                         out.println("</tr>");
                     }
                 %>
