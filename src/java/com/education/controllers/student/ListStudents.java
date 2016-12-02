@@ -5,8 +5,10 @@
  */
 package com.education.controllers.student;
 
+import com.education.models.Course;
 import com.education.services.StudentService;
 import com.education.models.Student;
+import com.education.services.CourseService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -28,6 +30,8 @@ public class ListStudents extends HttpServlet {
 
     @EJB
     StudentService sS;
+    @EJB
+    CourseService cS;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -41,7 +45,14 @@ public class ListStudents extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Student> list = (List<Student>) sS.listStudent();
+        List<Student> list;
+        if (request.getParameter("CourseId") != null) {
+            int id = Integer.parseInt(request.getParameter("CourseId"));
+            Course course = (Course) cS.getCourse(id);
+            list = (List<Student>) course.getStudents();
+        } else {
+            list = (List<Student>) sS.listStudent();
+        }
         request.setAttribute("Students", list);
         RequestDispatcher req = request.getRequestDispatcher("WEB-INF/views/student/listStudents.jsp");
         req.forward(request, response);

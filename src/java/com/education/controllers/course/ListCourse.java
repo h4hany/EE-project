@@ -7,6 +7,7 @@ package com.education.controllers.course;
 
 import com.education.services.CourseService;
 import com.education.models.Course;
+import com.education.services.InstructorService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -18,7 +19,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.education.models.Instructor;
+import com.education.models.Student;
+import com.education.services.StudentService;
 /**
  *
  * @author mohamedk
@@ -27,7 +30,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ListCourse extends HttpServlet {
 
     @EJB
-    CourseService sS;
+    CourseService cS;
+    @EJB
+    InstructorService sI;
+    @EJB
+    StudentService sS;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -41,7 +48,20 @@ public class ListCourse extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Course> list = (List<Course>) sS.listCourse();
+        List<Course> list;
+        if (request.getParameter("InstId") != null) {
+            int id = Integer.parseInt(request.getParameter("InstId"));
+            Instructor inst = (Instructor) sI.getInstructor(id);
+            list = (List<Course>) inst.getCourses();
+        } 
+        else if (request.getParameter("StudId") != null) {
+            int id = Integer.parseInt(request.getParameter("StudId"));
+            Student inst = (Student) sS.getStudent(id);
+            list = (List<Course>) inst.getCourses();
+        }
+        else {
+            list = (List<Course>) cS.listCourse();
+        }
         request.setAttribute("Courses", list);
         RequestDispatcher req = request.getRequestDispatcher("WEB-INF/views/course/listCourses.jsp");
         req.forward(request, response);

@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,@NamedQuery(name = "Course.deleteById", query = "delete from Course s WHERE s.id=:id")
 
 })
+   // ,@NamedQuery(name = "Course.getByInstId", query = "select s from Course s WHERE s.instructorForCourse=:id")
+
 //    @NamedQuery(name = "Course.updateById", query = "update Course s set s.courseName=:coursename,instractor_fk=:instractor_fk WHERE s.id=:id")
 @Transactional
 public class Course implements Serializable {

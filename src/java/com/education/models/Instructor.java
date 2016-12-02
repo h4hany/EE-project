@@ -9,6 +9,7 @@ import com.education.models.generic.Gender;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -46,6 +47,17 @@ public class Instructor implements Serializable {
     private int id;
     private String fname;
     private String lname;
+    private String password;
+    @Column(unique=true)
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
     @OneToMany(mappedBy="instructorForCourse")
     List<Course> courses;
@@ -79,6 +91,13 @@ public class Instructor implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+        public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

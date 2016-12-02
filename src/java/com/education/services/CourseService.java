@@ -57,6 +57,7 @@ public class CourseService {
 
     }
 
+
     public void deleteCourse(int id) {
         Course s = em.find(Course.class, id);
         em.remove(s);

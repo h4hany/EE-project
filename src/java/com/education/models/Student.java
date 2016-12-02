@@ -9,6 +9,7 @@ import com.education.models.generic.Gender;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -53,6 +54,7 @@ public class Student implements Serializable {
     private Gender gender;
     private String file;
     private int age;
+    @Column(unique=true)
     private String email;
     private String interest;
     private String password;
