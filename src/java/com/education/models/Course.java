@@ -61,6 +61,14 @@ public class Course implements Serializable {
         this.students = students;
     }
 
+    public void setStudent(Student student) {
+        if (!getStudents().contains(student)) {
+            getStudents().add(student);
+        }
+        if (!student.getCourses().contains(this)) {
+            student.getCourses().add(this);
+        }
+    }
     public Instructor getInstructorForCourse() {
         return instructorForCourse;
     }

@@ -3,6 +3,8 @@
     Created on : Nov 20, 2016, 7:00:00 PM
     Author     : hany
 --%>
+<%@page import="com.education.models.Course"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="com.education.models.Student"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -86,15 +88,7 @@
 </div>
 
 
-<div class="col-xs-12 col-sm-12 col-md-12">
-    <div class="col-xs-2 col-sm-2 col-md-2">
-        <label for="fname" >Date of Birth:</label>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6">
-        <% out.print(s.getAge()); %>
-        <%=s.getDob()%>
-    </div>
-</div>
+
 
 
 
@@ -104,6 +98,24 @@
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6">
         <%=s.getInterest()%>
+    </div>
+</div>
+    
+    
+    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-2 col-sm-2 col-md-2">
+        <label for="fname" >Date of Birth:</label>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6">
+                                <%
+                                    for (Iterator<Course> i = s.getCourses().iterator(); i.hasNext();) {
+                                        Course item = i.next();
+                                %>
+                                 <%= item.getCoursename()%></option
+                                <%
+                                    }
+                                %>
+
     </div>
 </div>
 

@@ -4,7 +4,10 @@
     Author     : hany
 --%>
 
-<%@page import="org.apache.commons.lang.ArrayUtils"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="com.education.models.Course"%>
+<%@page import="org.apache.commons.lang.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,18 +23,21 @@
         <link type="text/css" rel="stylesheet" href="resources/css/materialize.min.css" media="screen,projection"/>
         <link rel="stylesheet" href="resources/css/demo.css">
         <link rel="stylesheet" href="resources/css/footer-distributed-with-address-and-phones.css">
+        <link rel="stylesheet" href="resources/css/multi-select.css">
 
         <script src="resources/js/jquery-1.11.2.js"></script>
 
         <script src="resources/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="resources/js/materialize.min.js"></script>
         <script src="resources/js/script3.js"></script>
+        <script src="resources/js/multi-select.js"></script>
+
 
 
     </head>
 
     <body>
-      
+
 
         <%
             String fnameError = ((Boolean) request.getAttribute("fname-error")) ? "block" : "none"; //false;
@@ -42,23 +48,25 @@
             String fileError = ((Boolean) request.getAttribute("file-error")) ? "block" : "none";
             String ageError = ((Boolean) request.getAttribute("age-error")) ? "block" : "none";
             String dobError = ((Boolean) request.getAttribute("password-error")) ? "block" : "none";
-
+            String coursesError = ((Boolean) request.getAttribute("courses-error")) ? "block" : "none";
+            List<Course> list = (List<Course>) request.getAttribute("cList");
+            List<Course> listOwn = (List<Course>) request.getAttribute("cListOwn");
         %>
         <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
         <div class="container">
             <div>
                 <div>
-                              
+
                     <nav>
-                       <div class="nav-wrapper">
-                         <div class="col s12">
-                           <a href="#!" class="breadcrumb">Home</a>
-                           <a href="#!" class="breadcrumb active">Add Student</a>
-                         </div>
-                       </div>
-                     </nav>
-         
+                        <div class="nav-wrapper">
+                            <div class="col s12">
+                                <a href="#!" class="breadcrumb">Home</a>
+                                <a href="#!" class="breadcrumb active">Add Student</a>
+                            </div>
+                        </div>
+                    </nav>
+
                     <div>
                         <h3>Add Student</h3>
                         <hr>
@@ -260,6 +268,45 @@
                         </div>
                     </div>
                     <br>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12" style="display: <% out.print(coursesError);%>">
+                        <div  style="color: #a94442" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span>
+                            Please Select at least 1 course.
+                        </div>
+                    </div>    
+                    <br>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <label for="coursename" >Courses Names: </label>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+
+
+
+                            <select id="chkveg" name="courseId" multiple>
+                                <%
+
+                                    for (Iterator<Course> i = list.iterator(); i.hasNext();) {
+                                        Course item = i.next();
+
+
+                                %>
+                                <option <% if ((Boolean) listOwn.contains(item)) {
+                                        out.print("selected");
+                                    }
+                                    %> value="<%= item.getId()%>"><%= item.getCoursename()%></option>
+                                <%
+                                    }
+                                %>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
                     <div class="form-group col-xs-12 col-sm-12 col-md-12" style="display: <% out.print(dobError);%>">
                         <div style="color: #a94442" role="alert">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>

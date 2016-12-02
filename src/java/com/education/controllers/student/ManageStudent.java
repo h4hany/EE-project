@@ -5,9 +5,11 @@
  */
 package com.education.controllers.student;
 
+import com.education.models.Course;
 import com.education.services.StudentService;
 import com.education.models.generic.Gender;
 import com.education.models.Student;
+import com.education.services.CourseService;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,6 +30,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import com.education.services.generic.ValidatorLocal;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -41,6 +47,8 @@ public class ManageStudent extends HttpServlet {
     ValidatorLocal validator;
     @EJB
     StudentService sS;
+    @EJB
+    CourseService cS;
 
     private String getFileName(final Part part) {
         final String partHeader = part.getHeader("content-disposition");
@@ -76,7 +84,8 @@ public class ManageStudent extends HttpServlet {
             throws ServletException, IOException {
 
         String url = request.getServletPath();
-
+        List<Course> cList = cS.listCourse();
+        request.setAttribute("cList", cList);
         if (url.equals("/updateStudent")) {
             try {
                 int id = Integer.parseInt(request.getParameter("id"));
@@ -92,6 +101,7 @@ public class ManageStudent extends HttpServlet {
                 request.setAttribute("file-error", false);
                 request.setAttribute("age-error", false);
                 request.setAttribute("password-error", false);
+                request.setAttribute("courses-error", false);
 
                 request.setAttribute("fname-value", sE.getFname());
                 request.setAttribute("lname-value", sE.getLname());
@@ -102,6 +112,8 @@ public class ManageStudent extends HttpServlet {
                 //  String[] interest = new String[3];
                 String[] interest = ManageStudent.fromString(sE.getInterest());
                 request.setAttribute("interest-value", interest);
+                List<Course> listOwn = (List<Course>) sE.getCourses();
+                request.setAttribute("cListOwn", listOwn);
             } catch (Exception e) {
                 request.setAttribute("Error", true);
             }
@@ -116,6 +128,7 @@ public class ManageStudent extends HttpServlet {
             request.setAttribute("file-error", false);
             request.setAttribute("age-error", false);
             request.setAttribute("password-error", false);
+            request.setAttribute("courses-error", false);
 
             request.setAttribute("fname-value", "");
             request.setAttribute("lname-value", "");
@@ -125,7 +138,8 @@ public class ManageStudent extends HttpServlet {
             request.setAttribute("password-value", "");
             String[] interest = new String[3];
             request.setAttribute("interest-value", interest);
-
+            List<Course> listOwn = new ArrayList<Course>(1);
+            request.setAttribute("cListOwn", listOwn);
         }
         RequestDispatcher req = request.getRequestDispatcher("WEB-INF/views/student/addStudent.jsp");
         req.forward(request, response);
@@ -143,14 +157,22 @@ public class ManageStudent extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getServletPath();
-
+        Student sE = new Student();
         if (url.equals("/updateStudent")) {
             request.setAttribute("Edit", true);
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                sE.setId(id);
+
+            } catch (Exception e) {
+                System.err.println("Error !!!!");
+            }
         } else {
             request.setAttribute("Edit", false);
+            sS.addStduent(sE);
         }
         // Create path components to save the file
-        Student sE = new Student();
+
         request.setAttribute("errors", false);
         request.setAttribute("fname-error", false);
         request.setAttribute("lname-error", false);
@@ -160,6 +182,9 @@ public class ManageStudent extends HttpServlet {
         request.setAttribute("file-error", false);
         request.setAttribute("age-error", false);
         request.setAttribute("password-error", false);
+        request.setAttribute("courses-error", false);
+        List<Course> cList = cS.listCourse();
+        request.setAttribute("cList", cList);             
         final String path = request.getServletContext().getRealPath("");//request.getParameter("destination");
         final Part filePart = request.getPart("file");
         final String fileName = getFileName(filePart);
@@ -169,11 +194,14 @@ public class ManageStudent extends HttpServlet {
         InputStream filecontent = null;
 
         try {
+            if (!Files.exists(Paths.get(path + File.separator + sE.getId()))) {
+                Files.createDirectory(Paths.get(path + File.separator + sE.getId()));
+            }
+
             if (mimeType.startsWith("image/")) {
                 // It's an image.
-                System.err.println("IMAGEEEEEE");
-                sE.setFile(fileName);
-                outImage = new FileOutputStream(new File(path + File.separator
+                sE.setFile(sE.getId() + File.separator + fileName);
+                outImage = new FileOutputStream(new File(path + File.separator + sE.getId() + File.separator
                         + fileName));
                 filecontent = filePart.getInputStream();
                 int read = 0;
@@ -188,6 +216,7 @@ public class ManageStudent extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute("errors", true);
             request.setAttribute("file-error", true);
+            System.out.println(e);
         } finally {
             if (outImage != null) {
                 outImage.close();
@@ -196,8 +225,8 @@ public class ManageStudent extends HttpServlet {
                 filecontent.close();
             }
         }
-        String password =request.getParameter("password");
-         if (!validator.isNull(password) || !validator.length(password, 1)) {
+        String password = request.getParameter("password");
+        if (!validator.isNull(password) || !validator.length(password, 1)) {
             request.setAttribute("errors", true);
             request.setAttribute("password-error", true);
             request.setAttribute("password-value", "");
@@ -205,7 +234,7 @@ public class ManageStudent extends HttpServlet {
             request.setAttribute("password-value", password);
             sE.setPassword(password);
         }
-                 String fname = request.getParameter("fname");
+        String fname = request.getParameter("fname");
 
         System.out.println(fname);
         if (!validator.isNull(fname) || !validator.length(fname, 1)) {
@@ -246,6 +275,22 @@ public class ManageStudent extends HttpServlet {
 
             sE.setInterest(interestString);
         }
+        
+        String[] courses = request.getParameterValues("courseId");
+        List<Course> SelectedCourses = new ArrayList<Course>();
+if(courses !=null && courses.length >0){
+        for (String course : courses) {
+            SelectedCourses.add(cS.getCourse(Integer.parseInt(course)));
+        }
+}
+
+        request.setAttribute("cListOwn", SelectedCourses);
+        if (SelectedCourses.isEmpty()) {
+            request.setAttribute("courses-error", true);
+            request.setAttribute("errors", true);
+        } else {
+            sE.setCourses(SelectedCourses);
+        }
         String gender = request.getParameter("gender");
         if (!validator.isNull(gender) || !validator.isInt(gender)) {
             request.setAttribute("errors", true);
@@ -269,25 +314,17 @@ public class ManageStudent extends HttpServlet {
             request.setAttribute("age-value", age);
             sE.setAge(Integer.parseInt(age));
         }
-       
-        //String fname = request.getParameter("fname");
 
+        //String fname = request.getParameter("fname");
         if ((Boolean) request.getAttribute("errors")) {
+            if (!url.equals("/updateStudent")) {
+                sS.deleteStudent(sE.getId());
+            }
             RequestDispatcher req = request.getRequestDispatcher("WEB-INF/views/student/addStudent.jsp");
 
             req.forward(request, response);
         } else {
-            if (url.equals("/updateStudent")) {
-                try {
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    sE.setId(id);
-                    sS.updateStudent(sE);
-                } catch (Exception e) {
-                    System.err.println("Error !!!!");
-                }
-            } else {
-                sS.addStduent(sE);
-            }
+            sS.updateStudent(sE);
             response.sendRedirect("./listStudents");
         }
 

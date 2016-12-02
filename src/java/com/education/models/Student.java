@@ -9,10 +9,12 @@ import com.education.models.generic.Gender;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -59,18 +61,26 @@ public class Student implements Serializable {
     private String interest;
     private String password;
 
-    @ManyToMany
+    @ManyToMany(targetEntity = Course.class)
     @JoinTable(name = "students_courses", joinColumns = @JoinColumn(name = "student_fk"), inverseJoinColumns = @JoinColumn(name = "course_fk"))
     private List<Course> courses;
 
     public List<Course> getCourses() {
         return courses;
     }
+    
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
-
+    public void setCourse(Course course) {
+        if (!getCourses().contains(course)) {
+            getCourses().add(course);
+        }
+        if (!course.getStudents().contains(this)) {
+            course.getStudents().add(this);
+        }
+    }
     public String getFname() {
         return fname;
     }

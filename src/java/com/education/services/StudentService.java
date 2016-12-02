@@ -5,7 +5,9 @@
  */
 package com.education.services;
 
+import com.education.models.Course;
 import com.education.models.Student;
+import static java.util.Collections.list;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.LocalBean;
@@ -14,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContexts;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transaction;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
@@ -31,6 +34,13 @@ public class StudentService {
         em.persist(student);
         
     }
+    
+      public Course addProfessorProject(int empId, int projId) {
+    Course emp = em.find(Course.class, empId);
+    Student proj = em.find(Student.class, projId);
+    proj.setCourse(emp);
+    return emp;
+  }
     public List<Student> listStudent(){
     
        TypedQuery<Student> sQuery = em.createQuery("select s from Student s ",Student.class);
