@@ -108,13 +108,14 @@
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6">
                                 <%
+                                    out.print(s.getCourses().size());
                                     for (Iterator<Course> i = s.getCourses().iterator(); i.hasNext();) {
                                         Course item = i.next();
-                                %>
-                                 <%= item.getCoursename()%></option
-                                <%
+                                        out.print(item.getCoursename());
+                                        out.print(item.getId());
                                     }
                                 %>
+                                 
 
     </div>
 </div>

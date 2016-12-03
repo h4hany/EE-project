@@ -281,6 +281,7 @@ public class ManageStudent extends HttpServlet {
 if(courses !=null && courses.length >0){
         for (String course : courses) {
             SelectedCourses.add(cS.getCourse(Integer.parseInt(course)));
+           // sE.setCourse(cS.getCourse(Integer.parseInt(course)));
         }
 }
 
@@ -290,6 +291,9 @@ if(courses !=null && courses.length >0){
             request.setAttribute("errors", true);
         } else {
             sE.setCourses(SelectedCourses);
+            System.out.println(sE.getCourses().size());
+            System.out.println(sE.getCourses().get(0).getCoursename());
+            System.out.println(sE.getCourses().get(0).getId());
         }
         String gender = request.getParameter("gender");
         if (!validator.isNull(gender) || !validator.isInt(gender)) {

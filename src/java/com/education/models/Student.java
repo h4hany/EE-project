@@ -60,8 +60,7 @@ public class Student implements Serializable {
     private String email;
     private String interest;
     private String password;
-
-    @ManyToMany(targetEntity = Course.class)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     @JoinTable(name = "students_courses", joinColumns = @JoinColumn(name = "student_fk"), inverseJoinColumns = @JoinColumn(name = "course_fk"))
     private List<Course> courses;
 
@@ -73,14 +72,7 @@ public class Student implements Serializable {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
-    public void setCourse(Course course) {
-        if (!getCourses().contains(course)) {
-            getCourses().add(course);
-        }
-        if (!course.getStudents().contains(this)) {
-            course.getStudents().add(this);
-        }
-    }
+
     public String getFname() {
         return fname;
     }

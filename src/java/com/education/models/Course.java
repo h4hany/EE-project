@@ -9,13 +9,17 @@ import com.education.models.generic.Gender;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -50,9 +54,9 @@ public class Course implements Serializable {
     private int id;
     private String coursename;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.LAZY,mappedBy = "courses")
     private List<Student> students;
-
+//private Set studentss;
     public List<Student> getStudents() {
         return students;
     }
@@ -61,14 +65,7 @@ public class Course implements Serializable {
         this.students = students;
     }
 
-    public void setStudent(Student student) {
-        if (!getStudents().contains(student)) {
-            getStudents().add(student);
-        }
-        if (!student.getCourses().contains(this)) {
-            student.getCourses().add(this);
-        }
-    }
+
     public Instructor getInstructorForCourse() {
         return instructorForCourse;
     }

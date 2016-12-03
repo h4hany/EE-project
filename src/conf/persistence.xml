@@ -6,9 +6,10 @@
     <class>com.school.models.Course</class>
     <class>com.school.models.Instructor</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>ALL</shared-cache-mode>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-      <property name="javax.persistence.sql-load-script-source" value="file:/home/mohamedk/NetBeansProjects/EE-project/web/WEB-INF/sql/Education.sql" />
+      <property name="javax.persistence.sql-load-script-source" value="file:/home/mohamedk/NetBeansProjects/EE-project/web/WEB-INF/sql/Education.sql"/>
     </properties>
   </persistence-unit>
 </persistence>
