@@ -56,8 +56,22 @@
 	                            	Download it on <a href="http://azmind.com"><strong>AZMIND</strong></a>, customize and use it as you like!
                             	</p>
                             </div>
+                                
+                            <%
+                            try{
+                            if((Boolean) request.getAttribute("Error"))
+                            out.print("<h1><strong style='color: black'>Login Data is wrong</strong></h1>");
+                            }
+                            catch(Exception e)
+                            {
+                            }
+                            %>
                             <div class="top-big-link">
-                            	<a class="btn btn-link-1 launch-modal" href="#" data-modal-id="modal-login">    Login</a>
+                            	<a class="btn btn-link-1 launch-modal" href="#" data-modal-id="modal-login-inst">Instructor Login</a>
+                            </div>
+                                
+                            <div class="top-big-link">
+                            	<a class="btn btn-link-1 launch-modal" href="#" data-modal-id="modal-login-stud">Student Login</a>
                             </div>
                         </div>
                     </div>
@@ -85,7 +99,7 @@
         </div>
         
         <!-- MODAL -->
-        <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="modal-login-label" aria-hidden="true">
+        <div class="modal fade" id="modal-login-inst" tabindex="-1" role="dialog" aria-labelledby="modal-login-label" aria-hidden="true">
         	<div class="modal-dialog">
         		<div class="modal-content">
         			
@@ -93,13 +107,13 @@
         				<button type="button" class="close" data-dismiss="modal">
         					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         				</button>
-        				<h3 class="modal-title" id="modal-login-label">Login to our site</h3>
+        				<h3 class="modal-title" id="modal-login-label">Instructor Login</h3>
         				<p>Enter your username and password to log on:</p>
         			</div>
         			
         			<div class="modal-body">
         				
-	                    <form role="form" action="" method="post" class="login-form">
+	                    <form role="form" action="./LoginInstructor" method="post" class="login-form">
 	                    	<div class="form-group">
 	                    		<label class="sr-only" for="form-username">Email</label>
 	                        	<input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
@@ -117,6 +131,41 @@
         	</div>
         </div>
 
+        
+        
+        
+                <!-- MODAL -->
+        <div class="modal fade" id="modal-login-stud" tabindex="-1" role="dialog" aria-labelledby="modal-login-label" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+        			
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal">
+        					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        				</button>
+        				<h3 class="modal-title" id="modal-login-label">Student Login</h3>
+        				<p>Enter your username and password to log on:</p>
+        			</div>
+        			
+        			<div class="modal-body">
+        				
+	                    <form role="form" action="./LoginStudent" method="post" class="login-form">
+	                    	<div class="form-group">
+	                    		<label class="sr-only" for="form-username">Email</label>
+	                        	<input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="sr-only" for="form-password">Password</label>
+	                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+	                        </div>
+	                        <button type="submit" class="btn">Sign in!</button>
+	                    </form>
+	                    
+        			</div>
+        			
+        		</div>
+        	</div>
+        </div>
 
         <!-- Javascript -->
         <script src="resources/js/jquery-1.11.1.min.js"></script>
