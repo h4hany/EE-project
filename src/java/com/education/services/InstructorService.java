@@ -72,4 +72,25 @@ public class InstructorService {
     em.remove(s);    
     }
     
+        public Instructor login(String email, String password) {
+        boolean checkLogin = false;
+        Instructor s = null;
+
+        TypedQuery<Instructor> sQuery = em.createNamedQuery("Instructor.loginValdiate", Instructor.class);
+        sQuery.setParameter("email", email);
+        sQuery.setParameter("pass", password);
+        try {
+            if (sQuery.getSingleResult() != null) {
+                s = sQuery.getSingleResult();
+
+            } else {
+                s = null;
+            }
+        } catch (Exception e) {
+
+        }
+        return s;
+
+    }
+    
 }

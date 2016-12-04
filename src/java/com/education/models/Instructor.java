@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Instructor.updateById", query = "update Instructor s set s.fname=:fname, s.lname=:lname WHERE s.id=:id")
     ,@NamedQuery(name = "Instructor.getById", query = "select s from Instructor s WHERE s.id=:id")
     ,@NamedQuery(name = "Instructor.deleteById", query = "delete from Instructor s WHERE s.id=:id")
+    ,@NamedQuery(name = "Instructor.loginValdiate", query = "select s from Instructor s WHERE s.email=:email and s.password=:pass")
 
 })
 @Transactional

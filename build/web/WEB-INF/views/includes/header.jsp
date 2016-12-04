@@ -1,12 +1,12 @@
 
-<%@page import="com.education.controllers.index.CurrentStudent"%>
+<%@page import="com.education.controllers.index.CurrentUser"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     try{
-     CurrentStudent s = null;
+     CurrentUser s = null;
     if(session.getAttribute("currentUser") != null){
     
-      s = (CurrentStudent) session.getAttribute("currentUser");                         
+      s = (CurrentUser) session.getAttribute("currentUser");                         
     }
                         
 %>

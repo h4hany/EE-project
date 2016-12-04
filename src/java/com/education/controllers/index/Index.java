@@ -57,7 +57,7 @@ public class Index extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public CurrentStudent currentUser;
+    public CurrentUser currentUser;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -68,7 +68,7 @@ public class Index extends HttpServlet {
             String email = request.getParameter("form-username");
             String password = request.getParameter("form-password");
             if (studentService.login(email, password) != null) {
-                currentUser = new CurrentStudent(studentService.login(email, password));
+                currentUser = new CurrentUser(studentService.login(email, password));
                 HttpSession session = request.getSession();
                 session.setAttribute("currentUser", currentUser);
                 response.sendRedirect("listStudents");
@@ -79,8 +79,8 @@ public class Index extends HttpServlet {
         } else if (url.equals("/LoginInstructor")) {
             String email = request.getParameter("form-username");
             String password = request.getParameter("form-password");
-            if (studentService.login(email, password) != null) {
-                currentUser = new CurrentStudent(studentService.login(email, password));
+            if (iS.login(email, password) != null) {
+                currentUser = new CurrentUser(iS.login(email, password));
                 HttpSession session = request.getSession();
                 session.setAttribute("currentUser", currentUser);
                 response.sendRedirect("listStudents");

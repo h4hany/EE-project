@@ -5,6 +5,7 @@
  */
 package com.education.controllers.index;
 
+import com.education.models.Instructor;
 import com.education.models.Student;
 import com.education.models.generic.Gender;
 
@@ -12,7 +13,7 @@ import com.education.models.generic.Gender;
  *
  * @author hany
  */
-public class CurrentStudent {
+public class CurrentUser {
      
     private int id;
     private String fname;
@@ -95,8 +96,16 @@ public class CurrentStudent {
     private String email;
     private String interest;
     private String password;
+private int type;
 
-    public CurrentStudent(Student s) {
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+    public CurrentUser(Student s) {
         this.id = s.getId();
         this.fname = s.getFname();
         this.lname = s.getLname();
@@ -105,7 +114,15 @@ public class CurrentStudent {
         this.age = s.getAge();
         this.email = s.getEmail();
         this.interest = s.getInterest();
-        this.password = s.getPassword();
+        this.type=0;
+    }
+    
+    public CurrentUser(Instructor i) {
+        this.id = i.getId();
+        this.fname = i.getFname();
+        this.lname = i.getLname();
+        this.email = i.getEmail();
+        this.type=1;
     }
     
 }
