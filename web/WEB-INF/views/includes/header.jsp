@@ -20,12 +20,20 @@
             <a href="#!email"><span class="white-text email"> <%= s.getEmail() %></span></a>
         </div>
     </li>
+    <%if(s.getType() == 0)
+    {%>
+    <li><a href="./listCourses?StudId=<%= s.getId() %>" class="btn btn-default">List Courses</a></li>
+
+    <% }else{
+    %>
+    
     <li><a href="./addStudent" class="btn btn-default">Add Student</a></li>
     <li><a href="./listStudents" class="btn btn-default">List Student</a></li>
     <li><a href="./addCourse" class="btn btn-default">Add course</a></li>
     <li><a href="./listCourses" class="btn btn-default">List Courses</a></li>
     <li><a href="./addInstructor" class="btn btn-default">Add Instructor</a></li>
     <li><a href="./listInstructors" class="btn btn-default">List Instructor</a></li>
+    <% } %>
     <li>
         <div class="divider"></div>
     </li>
