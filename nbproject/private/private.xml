@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/mohamedk/NetBeansProjects/EE-project/web/WEB-INF/views/student/getStudent.jsp</file>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/web/WEB-INF/views/includes/header.jsp</file>
             <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/conf/persistence.xml</file>
             <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/controllers/student/ManageStudent.java</file>
             <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/models/Student.java</file>
             <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/models/Course.java</file>
             <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/services/CourseService.java</file>
             <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/services/StudentService.java</file>
-            <file>file:/home/mohamedk/NetBeansProjects/EE-project/web/WEB-INF/glassfish-resources.xml</file>
-            <file>file:/home/mohamedk/NetBeansProjects/EE-project/web/WEB-INF/views/student/addStudent.jsp</file>
-            <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/controllers/student/ListStudents.java</file>
         </group>
     </open-files>
 </project-private>
