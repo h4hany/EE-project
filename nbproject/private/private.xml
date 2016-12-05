@@ -3,8 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/web/WEB-INF/views/includes/header.jsp</file>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/controllers/index/CurrentUser.java</file>
             <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/conf/persistence.xml</file>
-            <file>file:/home/mohamedk/NetBeansProjects/EE-project/web/WEB-INF/glassfish-resources.xml</file>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/models/Instructor.java</file>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/controllers/student/ManageStudent.java</file>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/models/Student.java</file>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/web/WEB-INF/views/index.jsp</file>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/services/StudentService.java</file>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/services/InstructorService.java</file>
+            <file>file:/home/mohamedk/NetBeansProjects/EE-project/src/java/com/education/controllers/index/Index.java</file>
         </group>
     </open-files>
 </project-private>
