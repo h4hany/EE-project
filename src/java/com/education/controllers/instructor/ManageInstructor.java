@@ -61,7 +61,7 @@ public class ManageInstructor extends HttpServlet {
             throws ServletException, IOException {
 
         String url = request.getServletPath();
-            List<Course> cList = cS.listCourse();
+        List<Course> cList = cS.listCourse();
 
         if (url.equals("/updateInstructor")) {
             try {
@@ -72,10 +72,13 @@ public class ManageInstructor extends HttpServlet {
                 request.setAttribute("Edit", true);
                 request.setAttribute("fname-error", false);
                 request.setAttribute("lname-error", false);
-
+                request.setAttribute("password-error", false);
+                request.setAttribute("email-error", false);
                 request.setAttribute("fname-value", sE.getFname());
                 request.setAttribute("lname-value", sE.getLname());
-            request.setAttribute("cList", cList);
+                request.setAttribute("password-value", sE.getPassword());
+                request.setAttribute("email-value", sE.getEmail());
+                request.setAttribute("cList", cList);
 
             } catch (Exception e) {
                 request.setAttribute("Error", true);
@@ -85,7 +88,10 @@ public class ManageInstructor extends HttpServlet {
             request.setAttribute("Edit", false);
             request.setAttribute("fname-error", false);
             request.setAttribute("lname-error", false);
-
+            request.setAttribute("password-error", false);
+            request.setAttribute("email-error", false);
+            request.setAttribute("password-value", "");
+            request.setAttribute("email-value", "");
             request.setAttribute("fname-value", "");
             request.setAttribute("lname-value", "");
             request.setAttribute("cList", cList);
@@ -107,7 +113,8 @@ public class ManageInstructor extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getServletPath();
-
+List<Course> cList = cS.listCourse();
+                request.setAttribute("cList", cList);
         if (url.equals("/updateInstructor")) {
             request.setAttribute("Edit", true);
         } else {
@@ -118,6 +125,28 @@ public class ManageInstructor extends HttpServlet {
         request.setAttribute("errors", false);
         request.setAttribute("fname-error", false);
         request.setAttribute("lname-error", false);
+        request.setAttribute("password-error", false);
+        request.setAttribute("email-error", false);
+        
+        String password = request.getParameter("password");
+        if (!validator.isNull(password) || !validator.length(password, 1)) {
+            request.setAttribute("errors", true);
+            request.setAttribute("password-error", true);
+            request.setAttribute("password-value", "");
+        } else {
+            request.setAttribute("password-value", password);
+            sE.setPassword(password);
+        }
+
+        String email = request.getParameter("email");
+        if (!validator.isEmail(email)) {
+            request.setAttribute("errors", true);
+            request.setAttribute("email-error", true);
+            request.setAttribute("email-value", "");
+        } else {
+            request.setAttribute("email-value", email);
+            sE.setEmail(email);
+        }
         String fname = request.getParameter("fname");
         System.out.println(fname);
         if (!validator.isNull(fname) || !validator.length(fname, 1)) {

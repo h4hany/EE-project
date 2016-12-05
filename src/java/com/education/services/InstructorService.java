@@ -53,18 +53,20 @@ public class InstructorService {
     }
 
     public void updateInstructor(Instructor s){
-    TypedQuery<Instructor> sQuery = em.createNamedQuery("Instructor.updateById",Instructor.class);
+    /*TypedQuery<Instructor> sQuery = em.createNamedQuery("Instructor.updateById",Instructor.class);
     sQuery.setParameter("fname", s.getFname());
     sQuery.setParameter("lname", s.getLname());
    
     sQuery.setParameter("id", s.getId());
     sQuery.executeUpdate();
+    */
+    em.merge(s);
     }
     public Instructor getInstructor(int id){
-    TypedQuery<Instructor> sQuery = em.createNamedQuery("Instructor.getById",Instructor.class);
+    /*TypedQuery<Instructor> sQuery = em.createNamedQuery("Instructor.getById",Instructor.class);
     sQuery.setParameter("id", id);
-    return  sQuery.getSingleResult();
-        
+    return  sQuery.getSingleResult();*/
+        return em.find(Instructor.class, id);
     }
 
     public void deleteInstructor(int id){

@@ -107,6 +107,14 @@
                             <input type="text" class="form-control" id="lname" name="lname" value="<%= request.getAttribute("lname-value")%>">
                         </div>
                     </div>
+                        <br>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12" style="display: <% out.print(dobError);%>">
+                        <div style="color: #a94442" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span>
+                            Please enter a valid Password
+                        </div>
+                    </div>
                     <br>
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
 
@@ -307,13 +315,7 @@
 
 
                     </div>
-                    <div class="form-group col-xs-12 col-sm-12 col-md-12" style="display: <% out.print(dobError);%>">
-                        <div style="color: #a94442" role="alert">
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            <span class="sr-only">Error:</span>
-                            Please enter a valid date of birth
-                        </div>
-                    </div>
+                
                     <br>
 
                     <div class="col-xs-6 col-xs-offset-5 col-sm-6 col-sm-offset-5">

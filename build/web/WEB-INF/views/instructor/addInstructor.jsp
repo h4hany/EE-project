@@ -10,6 +10,7 @@
 <%@page import="java.util.List"%>
 <%@page import="org.apache.commons.lang.ArrayUtils"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% try{ %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -43,6 +44,8 @@
         <%
             String fnameError = ((Boolean) request.getAttribute("fname-error")) ? "block" : "none"; //false;
             String lnameError = ((Boolean) request.getAttribute("lname-error")) ? "block" : "none";
+            String passError = ((Boolean) request.getAttribute("password-error")) ? "block" : "none";
+            String emailError = ((Boolean) request.getAttribute("email-error")) ? "block" : "none";
 
             List<Course> list = (List<Course>) request.getAttribute("cList");
 
@@ -103,6 +106,42 @@
                             <input type="text" class="form-control" id="lname" name="lname" value="<%= request.getAttribute("lname-value")%>">
                         </div>
                     </div>
+                    <br>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12" style="display: <% out.print(passError);%>">
+                        <div style="color: #a94442" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span>
+                            Please enter a valid Password
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <label for="password" >Password :</label>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <input type="password" class="form-control" id="password" name="password" value="<%= request.getAttribute("password-value")%>">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12" style="display: <% out.print(emailError);%>">
+                        <div style="color: #a94442" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span>
+                            Please enter a valid email
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <label for="email">Email address:</label>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <input type="email" class="form-control" id="email" name="email" value="<%= request.getAttribute("email-value")%>">
+                        </div>
+                    </div>
+                    <br>
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
 
                         <div class="col-xs-2 col-sm-2 col-md-2">
@@ -120,7 +159,7 @@
 
 
                                 %>
-                                <option value="<%= item.getId()%>"><%= item.getCoursename() %></option>
+                                <option value="<%= item.getId()%>"><%= item.getCoursename()%></option>
                                 <%
                                     }
                                 %>
@@ -151,3 +190,10 @@
 
     </body>
 </html>
+<% }
+catch(Exception e)
+{
+System.out.println("HOHOHOHOHO");
+System.out.println(e);
+}
+%>
